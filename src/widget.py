@@ -1,4 +1,6 @@
 from src.masks import get_mask_account, get_mask_card_number
+
+
 def mask_account_card(user_input: str) -> str:
     """Функция, скрывающая номер или счёт карты"""
     input_parts = user_input.split()
@@ -17,6 +19,7 @@ def mask_account_card(user_input: str) -> str:
         answer = str_card_name + " " + get_mask_card_number(int(str_card_number))
 
     return answer
+
 
 def get_date(iso_format_date: str) -> str:
     """Функция, преобразующая строку с датой из одного формата в другой"""
