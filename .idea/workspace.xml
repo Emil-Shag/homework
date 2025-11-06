@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dfe591e-526c-47ac-b4b3-d2c9fc85ce3e" name="Changes" comment="">
+    <list default="true" id="1dfe591e-526c-47ac-b4b3-d2c9fc85ce3e" name="Changes" comment="homework_10_1 done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/masks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/masks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +105,15 @@
       <option name="presentableId" value="Default" />
       <updated>1762162878422</updated>
     </task>
+    <task id="LOCAL-00001" summary="homework_10_1 done">
+      <option name="closed" value="true" />
+      <created>1762344673251</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762344673251</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,5 +126,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="homework_10_1 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="homework_10_1 done" />
   </component>
 </project>
