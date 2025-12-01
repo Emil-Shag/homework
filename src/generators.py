@@ -3,12 +3,18 @@ from typing import Iterator, Generator
 
 def filter_by_currency(transactions: list[dict], currency: str) -> Iterator:
     """Генератор, который фильтрует транзакции по заданной валюте"""
+    if len(transactions) == 0:
+        yield "Пустой список"
     for transaction in transactions:
         if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
             yield transaction
+        else:
+            yield "Операций с указанной валютой не найдено"
 
 def transaction_descriptions(transactions: list[dict]) -> Iterator:
     """Генератор, принимает список словарей с транзакциями и возвращает описание каждой операции по очереди."""
+    if len(transactions) == 0:
+        yield "Пустой список"
     for transaction in transactions:
         yield transaction.get("description")
 

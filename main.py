@@ -212,5 +212,5 @@ if __name__ == "__main__":
     for i in range(5):
         print(next(descriptions))
 
-    for card_number in card_number_generator(99999999, 100000004):
+    for card_number in card_number_generator(9999999999999997, 9999999999999999):
         print(card_number)
