@@ -3,6 +3,7 @@ from src.generators import card_number_generator, filter_by_currency, transactio
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
+from src.utils import get_transactions_from_file
 
 if __name__ == "__main__":
     print(get_mask_card_number("7000 7922 8960 6361"))
@@ -162,17 +163,4 @@ if __name__ == "__main__":
         print(card_number)
 
 
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x + y
-
-
-my_function(1, 2)
-
-
-@log()
-def my_function(x, y):
-    return x / y
-
-
-my_function(1, 0)
+print(get_transactions_from_file("data/operations.json"))
