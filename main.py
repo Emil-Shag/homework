@@ -1,9 +1,10 @@
-from src.decorators import log
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
 from src.utils import get_transactions_from_file
+from src.external_api import transaction_amount_in_rub
+
 
 if __name__ == "__main__":
     print(get_mask_card_number("7000 7922 8960 6361"))
@@ -164,3 +165,19 @@ if __name__ == "__main__":
 
 
 print(get_transactions_from_file("data/operations.json"))
+
+print(transaction_amount_in_rub({
+    "id": 41428829,
+    "state": "EXECUTED",
+    "date": "2019-07-03T18:35:29.512364",
+    "operationAmount": {
+      "amount": "8221.37",
+      "currency": {
+        "name": "USD",
+        "code": "USD"
+      }
+    },
+    "description": "Перевод организации",
+    "from": "MasterCard 7158300734726758",
+    "to": "Счет 35383033474447895560"
+  }))
