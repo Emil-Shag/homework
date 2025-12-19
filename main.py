@@ -1,7 +1,8 @@
-from src.decorators import log
+from src.external_api import transaction_amount_in_rub
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
+from src.utils import get_transactions_from_file
 from src.widget import get_date, mask_account_card
 
 if __name__ == "__main__":
@@ -162,17 +163,18 @@ if __name__ == "__main__":
         print(card_number)
 
 
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x + y
+print(get_transactions_from_file("data/operations.json"))
 
-
-my_function(1, 2)
-
-
-@log()
-def my_function(x, y):
-    return x / y
-
-
-my_function(1, 0)
+print(
+    transaction_amount_in_rub(
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод организации",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
+        }
+    )
+)
