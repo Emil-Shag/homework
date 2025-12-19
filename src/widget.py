@@ -13,10 +13,12 @@ def mask_account_card(user_input: str) -> str:
             card_number.append(part)
     str_card_name = " ".join(card_name)
     str_card_number = " ".join(card_number)
-    if len(str_card_number) > 16:
+    if len(str_card_number) == 20:
         answer = str_card_name + " " + get_mask_account(int(str_card_number))
-    else:
+    elif len(str_card_number) == 16:
         answer = str_card_name + " " + get_mask_card_number(int(str_card_number))
+    else:
+        answer = "Некорректный ввод данных"
 
     return answer
 
@@ -26,5 +28,14 @@ def get_date(iso_format_date: str) -> str:
     new_format_date = iso_format_date[8:10]
     new_format_month = iso_format_date[5:7]
     new_format_year = iso_format_date[0:4]
-    required_date_format = new_format_date + "." + new_format_month + "." + new_format_year
-    return required_date_format
+    check_digit = new_format_date + new_format_month + new_format_year
+    if (
+        check_digit.isdigit()
+        and 1 <= int(new_format_date) <= 31
+        and 1 <= int(new_format_month) <= 12
+        and 1 <= int(new_format_year) <= 2025
+    ):
+        required_date_format = new_format_date + "." + new_format_month + "." + new_format_year
+        return required_date_format
+    else:
+        return "Неверно указаны параметры даты"
