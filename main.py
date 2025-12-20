@@ -1,6 +1,15 @@
-from src.new_format_data_reader import csv_reader, exl_reader
+def main():
+    print(
+        """Привет! Добро пожаловать в программу работы с банковскими транзакциями.
+    Выберите необходимый пункт меню:
+    1. Получить информацию о транзакциях из JSON-файла
+    2. Получить информацию о транзакциях из CSV-файла
+    3. Получить информацию о транзакциях из XLSX-файла"""
+    )
+
+    user_input = input("Пользователь: ")
+
 
 if __name__ == "__main__":
 
-    print(csv_reader("data/transactions.csv"))
-    print(exl_reader("data/transactions_excel.xlsx"))
+    main()
