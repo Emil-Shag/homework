@@ -1,8 +1,8 @@
 from src.filtration import process_bank_search
-from src.utils import get_transactions_from_file
+from src.generators import filter_by_currency
 from src.new_format_data_reader import csv_reader, exl_reader
 from src.processing import filter_by_state, sort_by_date
-from src.generators import filter_by_currency
+from src.utils import get_transactions_from_file
 from src.widget import get_date, mask_account_card
 
 
@@ -37,8 +37,10 @@ def main():
     print(get_info)
 
     while True:
-        print("""Программа: Введите статус, по которому необходимо выполнить фильтрацию.
-Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING""")
+        print(
+            """Программа: Введите статус, по которому необходимо выполнить фильтрацию.
+Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING"""
+        )
         status_choice = input("Пользователь: ").upper()
         if status_choice == "EXECUTED":
             filtered_transactions = filter_by_state(get_info)

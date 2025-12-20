@@ -11,7 +11,7 @@ def csv_reader(csv_file_path):
         reader = csv.DictReader(file, delimiter=";")
 
         for row in reader:
-            if not row.get("id"):  # пропускаем пустые строки
+            if not row.get("id"):
                 continue
             transactions.append(
                 {
