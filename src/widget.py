@@ -3,6 +3,8 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(user_input: str) -> str:
     """Функция, скрывающая номер или счёт карты"""
+    if not user_input:
+        return "Некорректный ввод данных"
     input_parts = user_input.split()
     card_name = []
     card_number = []

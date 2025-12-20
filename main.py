@@ -3,15 +3,19 @@ from src.utils import get_transactions_from_file
 from src.new_format_data_reader import csv_reader, exl_reader
 from src.processing import filter_by_state, sort_by_date
 from src.generators import filter_by_currency
+from src.widget import get_date, mask_account_card
+
 
 def main():
     while True:
-        print("""Программа: Привет! Добро пожаловать в программу работы с банковскими транзакциями.
+        print(
+            """Программа: Привет! Добро пожаловать в программу работы с банковскими транзакциями.
 Выберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
 2. Получить информацию о транзакциях из CSV-файла
 3. Получить информацию о транзакциях из XLSX-файла
-""")
+"""
+        )
 
         user_input = input("Пользователь: ")
 
@@ -33,7 +37,7 @@ def main():
     print(get_info)
 
     while True:
-        print("""Программа: Введите статус, по которому необходимо выполнить фильтрацию. 
+        print("""Программа: Введите статус, по которому необходимо выполнить фильтрацию.
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING""")
         status_choice = input("Пользователь: ").upper()
         if status_choice == "EXECUTED":
@@ -104,13 +108,22 @@ def main():
     print("Программа: Распечатываю итоговый список транзакций...")
 
     if sorted_by_filter:
-        print(f"Программа: Всего банковских операций в выборке: {len(list(sorted_by_filter))}")
-        for operations in sorted_by_filter:
-            print(operations)
+        print(f"Программа: Всего банковских операций в выборке: {len(list(sorted_by_filter))}\n")
+        for operation in sorted_by_filter:
+            date_operation = get_date(operation.get("date"))
+            name_operation = operation["description"]
+            from_operation = mask_account_card(operation.get("from"))
+            to_operation = mask_account_card(operation.get("to"))
+            summ_operation = operation["amount"]
+            currency_operation = operation["currency"]
+            print(f"{date_operation} {name_operation}")
+            if from_operation == "Некорректный ввод данных":
+                print(f"{to_operation}")
+            else:
+                print(f"{from_operation} -> {to_operation}")
+            print(f"Сумма: {summ_operation} {currency_operation}\n")
     else:
         print("Программа: Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
-
-
 
 
 if __name__ == "__main__":

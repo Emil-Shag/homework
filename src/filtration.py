@@ -2,15 +2,16 @@ import re
 from collections import Counter
 
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
     """Фильтрация операций по поисковому запросу в описании"""
     pattern = re.compile(search, flags=re.IGNORECASE)
-    filtered_transactions = [t for t in data if pattern.search(t.get("description", "").lower())]
+    filtered_transactions = [t for t in data if pattern.search(str(t.get("description", "")))]
     return filtered_transactions
 
-def process_bank_operations(data:list[dict], categories:list)->dict:
+
+def process_bank_operations(data: list[dict], categories: list) -> dict:
     """Подсчёт количества операций по категориям"""
-    description_list =[]
+    description_list = []
     for operation in data:
         if operation.get("description") in categories:
             description_list.append(operation.get("description"))
