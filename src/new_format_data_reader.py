@@ -15,3 +15,7 @@ def exl_reader(exl_file_path):
     df = pd.read_excel(exl_file_path)
     xls_data = df.to_dict(orient="records")
     return xls_data
+
+
+a = csv_reader("data/transactions.csv")
+print(a)

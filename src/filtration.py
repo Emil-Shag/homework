@@ -5,7 +5,7 @@ from collections import Counter
 def process_bank_search(data:list[dict], search:str)->list[dict]:
     """Фильтрация операций по поисковому запросу в описании"""
     pattern = re.compile(search, flags=re.IGNORECASE)
-    filtered_transactions = [t for t in data if pattern.search(t.get("description", ""))]
+    filtered_transactions = [t for t in data if pattern.search(t.get("description", "").lower())]
     return filtered_transactions
 
 def process_bank_operations(data:list[dict], categories:list)->dict:
