@@ -16,14 +16,34 @@ logger.addHandler(file_handler)
 def get_transactions_from_file(file_path):
     """Функция, принимающая путь до JSON-файла и возвращает список словарей с данными"""
     try:
-        with open(file_path, "r", encoding="UTF-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             data = json.load(file)
-            if isinstance(data, list):
-                logger.info(f"Транзакции успешно загружены из файла: {file_path}")
-                return data
-            else:
-                logger.warning(f"Данные в файле {file_path} не являются списком.")
-                return []
+
+        if not isinstance(data, list):
+            logger.warning(f"Данные в файле {file_path} не являются списком.")
+            return []
+
+        transactions = []
+
+        for t in data:
+            try:
+                transactions.append(
+                    {
+                        "id": t.get("id"),
+                        "state": t.get("state"),
+                        "date": t.get("date"),
+                        "description": t.get("description", ""),
+                        "from": t.get("from"),
+                        "to": t.get("to"),
+                        "amount": float(t["operationAmount"]["amount"]),
+                        "currency": t["operationAmount"]["currency"]["code"],
+                    }
+                )
+            except (KeyError, TypeError, ValueError):
+                logger.warning(f"Пропущена некорректная транзакция: {t}")
+
+        return transactions
+
     except (FileNotFoundError, json.JSONDecodeError):
-        logger.error(f"Ошибка при декодировании JSON из файла {file_path}, либо файл не найден")
+        logger.error(f"Ошибка чтения JSON-файла: {file_path}")
         return []

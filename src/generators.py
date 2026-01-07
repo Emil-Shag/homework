@@ -6,7 +6,7 @@ def filter_by_currency(transactions: list[dict], currency: str) -> Iterator:
     if len(transactions) == 0:
         yield "Пустой список"
     for transaction in transactions:
-        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
+        if transaction.get("currency") == currency:
             yield transaction
 
 

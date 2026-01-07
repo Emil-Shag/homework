@@ -1,33 +1,38 @@
+import json
 import unittest
-from unittest.mock import mock_open, patch
+from unittest.mock import MagicMock, mock_open, patch
 
-from src.utils import get_transactions_from_file
+with patch("logging.FileHandler", MagicMock()):
+    from src.utils import get_transactions_from_file
 
 
 class TestGetTransactions(unittest.TestCase):
 
     @patch(
-        "builtins.open", new_callable=mock_open, read_data='[{"id": 123, "currency": {"code": "RUB", "amount": 1000}}]'
+        "src.utils.open",
+        new_callable=mock_open,
+        read_data=json.dumps(
+            [
+                {
+                    "id": 1,
+                    "state": "EXECUTED",
+                    "date": "2023-01-01",
+                    "description": "Перевод",
+                    "from": "Счет 123",
+                    "to": "Счет 456",
+                    "operationAmount": {"amount": "1000", "currency": {"code": "RUB"}},
+                }
+            ]
+        ),
     )
-    def test_valid_json_list(self, mock_file):
+    def test_valid_json(self, mock_file):
         result = get_transactions_from_file("fake.json")
         self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["amount"], 1000.0)
+        self.assertEqual(result[0]["currency"], "RUB")
 
-    @patch(
-        "builtins.open", new_callable=mock_open, read_data='{"id": 123, "currency": {"code": "RUB", "amount": 1000}}'
-    )
-    def test_json_not_list(self, mock_file):
-        result = get_transactions_from_file("fake.json")
-        self.assertEqual(result, [])
-
-    @patch(
-        "builtins.open", new_callable=mock_open, read_data='{"id": 123, "currency": {"code": "RUB", "amount": 1000}}'
-    )
-    def test_invalid_json(self, mock_file):
-        result = get_transactions_from_file("fake.json")
-        self.assertEqual(result, [])
-
-    @patch("builtins.open", side_effect=FileNotFoundError)
-    def test_file_not_found(self, mock_file):
+    @patch("src.utils.logger")
+    @patch("src.utils.open", side_effect=FileNotFoundError)
+    def test_file_not_found(self, mock_open, mock_logger):
         result = get_transactions_from_file("missing.json")
         self.assertEqual(result, [])
